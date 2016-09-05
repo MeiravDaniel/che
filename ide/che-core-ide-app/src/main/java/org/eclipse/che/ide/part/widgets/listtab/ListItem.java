@@ -11,7 +11,6 @@
 package org.eclipse.che.ide.part.widgets.listtab;
 
 import org.eclipse.che.ide.api.mvp.View;
-import org.eclipse.che.ide.api.parts.PartStackView;
 
 import javax.validation.constraints.NotNull;
 
@@ -19,17 +18,12 @@ import javax.validation.constraints.NotNull;
  * @author Dmitry Shnurenko
  * @author Vitaliy Guliy
  */
-public interface ListItem extends View<ListItem.ActionDelegate> {
+public interface ListItem<T> extends View<ListItem.ActionDelegate> {
 
-    /**
-     * Returns associated tab item.
-     * @return tab item
-     */
-    @NotNull
-    PartStackView.TabItem getTabItem();
+    /** Returns associated data. */
+    T getData();
 
     interface ActionDelegate {
-
         /**
          * Handle clicking on list item
          * @param listItem
@@ -41,7 +35,5 @@ public interface ListItem extends View<ListItem.ActionDelegate> {
          * @param listItem
          */
         void onCloseButtonClicked(@NotNull ListItem listItem);
-
     }
-
 }

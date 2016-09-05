@@ -42,7 +42,7 @@ public class MenuItemWidget extends Composite implements MenuItem<Tab> {
     private Tab            tab;
     private ActionDelegate delegate;
 
-    public MenuItemWidget(Tab tab, boolean closable) {
+    public MenuItemWidget(Tab tab, boolean closable) {//
         initWidget(UI_BINDER.createAndBindUi(this));
         this.tab = tab;
 

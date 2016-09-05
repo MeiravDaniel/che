@@ -20,22 +20,22 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-import org.eclipse.che.ide.api.parts.PartStackView.TabItem;
+import org.eclipse.che.ide.api.action.Action;
+import org.eclipse.che.ide.api.action.Presentation;
 
 import javax.validation.constraints.NotNull;
 
 /**
- * @author Dmitry Shnurenko
- * @author Vitaliy Guliy
+ * @author Roman Nikitenko
  */
-public class ListItemWidget extends Composite implements ListItem<TabItem> {
+public class ListItemActionWidget extends Composite implements ListItem<Action> {
 
-    interface ListItemWidgetUiBinder extends UiBinder<Widget, ListItemWidget> {
+    interface ListItemActionWidgetUiBinder extends UiBinder<Widget, ListItemActionWidget> {
     }
 
-    private static final ListItemWidgetUiBinder UI_BINDER = GWT.create(ListItemWidgetUiBinder.class);
+    private static final ListItemActionWidgetUiBinder UI_BINDER = GWT.create(ListItemActionWidgetUiBinder.class);
 
-    private TabItem tabItem;
+    private Action action;
 
     @UiField
     FlowPanel iconPanel;
@@ -43,38 +43,24 @@ public class ListItemWidget extends Composite implements ListItem<TabItem> {
     @UiField
     Label title;
 
-    @UiField
-    FlowPanel closeButton;
-
     private ActionDelegate delegate;
 
-    public ListItemWidget(@NotNull TabItem tabItem) {
+    public ListItemActionWidget(@NotNull Action action) {
         initWidget(UI_BINDER.createAndBindUi(this));
-        this.tabItem = tabItem;
+        this.action = action;
+        Presentation presentation = action.getTemplatePresentation();
 
-        Widget icon = tabItem.getIcon();
-        if (icon != null) {
-            iconPanel.add(icon);
-        }
-        title.setText(tabItem.getTitle());
+//        Widget icon = action.getTemplatePresentation().getImageResource();
+//        if (icon != null) {
+//            iconPanel.add(icon);
+//        }
+        title.setText(presentation.getText());
 
         addDomHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
                 if (delegate != null) {
-                    delegate.onItemClicked(ListItemWidget.this);
-                }
-            }
-        }, ClickEvent.getType());
-
-        closeButton.addDomHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent clickEvent) {
-                clickEvent.stopPropagation();
-                clickEvent.preventDefault();
-
-                if (delegate != null) {
-                    delegate.onCloseButtonClicked(ListItemWidget.this);
+                    delegate.onItemClicked(ListItemActionWidget.this);
                 }
             }
         }, ClickEvent.getType());
@@ -87,7 +73,7 @@ public class ListItemWidget extends Composite implements ListItem<TabItem> {
     }
 
     @Override
-    public TabItem getData() {
-        return tabItem;
+    public Action getData() {
+        return action;
     }
 }

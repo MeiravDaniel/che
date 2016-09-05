@@ -26,6 +26,7 @@ import com.google.inject.assistedinject.Assisted;
 import org.eclipse.che.ide.Resources;
 import org.eclipse.che.ide.api.parts.PartPresenter;
 import org.eclipse.che.ide.api.parts.PartStackView.TabPosition;
+import org.eclipse.che.ide.util.loging.Log;
 import org.vectomatic.dom.svg.ui.SVGImage;
 import org.vectomatic.dom.svg.ui.SVGResource;
 
@@ -179,6 +180,7 @@ public class PartButtonWidget extends Composite implements PartButton {
     /** {@inheritDoc} */
     @Override
     public void onClick(@NotNull ClickEvent event) {
+        Log.error(getClass(), "delegate on tab clicked");
         delegate.onTabClicked(this);
     }
 

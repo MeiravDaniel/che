@@ -170,7 +170,23 @@ public class EditorAgentImpl implements EditorAgent,
 
     public void closeEditor(EditorTab tab) {
         checkArgument(tab != null, "Null editor tab occurred");
-        doClose(tab.getRelativeEditorPart());
+
+        EditorPartPresenter editor = tab.getRelativeEditorPart();
+        if (editor == null) {
+            return;
+        }
+
+        openedEditors.remove(editor);
+
+        editor.close(false);
+
+        if (editor instanceof TextEditor) {
+            editorContentSynchronizerProvider.get().unTrackEditor(editor);
+        }
+
+        if (activeEditor != null && activeEditor == editor) {
+            activeEditor = null;
+        }
     }
 
     @Override
@@ -188,24 +204,6 @@ public class EditorAgentImpl implements EditorAgent,
         //we have the handlers for the closing file event in different places of the project
         //so we need to notify them about it (we can't just pass doClose() method)
         eventBus.fireEvent(FileEvent.createCloseFileEvent(editorTab));
-    }
-
-    private void doClose(EditorPartPresenter editor) {
-        if (editor == null) {
-            return;
-        }
-
-        openedEditors.remove(editor);
-
-        editor.close(false);
-
-        if (editor instanceof TextEditor) {
-            editorContentSynchronizerProvider.get().unTrackEditor(editor);
-        }
-
-        if (activeEditor != null && activeEditor == editor) {
-            activeEditor = null;
-        }
     }
 
     @Override

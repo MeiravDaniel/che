@@ -104,7 +104,6 @@ public class EditorPartStackView extends ResizeComposite implements PartStackVie
     public void setListButton(@NotNull ListButton listButton) {
         this.listButton = listButton;
         tabsPanel.add(listButton);
-        listButton.setVisible(false);
     }
 
     /** {@inheritDoc} */
@@ -140,29 +139,29 @@ public class EditorPartStackView extends ResizeComposite implements PartStackVie
      * Updates visibility of file list button.
      */
     private void updateDropdownVisibility() {
-        if (listButton == null) {
-            return;
-        }
-
-        if (tabsPanel.getWidgetCount() == 1) {
-            listButton.setVisible(false);
-            return;
-        }
-
-        int width = 0;
-        for (int i = 0; i < tabsPanel.getWidgetCount(); i++) {
-            if (listButton != tabsPanel.getWidget(i)) {
-                if (tabsPanel.getWidget(i).isVisible()) {
-                    width += tabsPanel.getWidget(i).getOffsetWidth();
-                } else {
-                    tabsPanel.getWidget(i).setVisible(true);
-                    width += tabsPanel.getWidget(i).getOffsetWidth();
-                    tabsPanel.getWidget(i).setVisible(false);
-                }
-            }
-        }
-
-        listButton.setVisible(width >= tabsPanel.getOffsetWidth());
+//        if (listButton == null) {
+//            return;
+//        }
+//
+//        if (tabsPanel.getWidgetCount() == 1) {
+//            listButton.setVisible(false);
+//            return;
+//        }
+//
+//        int width = 0;
+//        for (int i = 0; i < tabsPanel.getWidgetCount(); i++) {
+//            if (listButton != tabsPanel.getWidget(i)) {
+//                if (tabsPanel.getWidget(i).isVisible()) {
+//                    width += tabsPanel.getWidget(i).getOffsetWidth();
+//                } else {
+//                    tabsPanel.getWidget(i).setVisible(true);
+//                    width += tabsPanel.getWidget(i).getOffsetWidth();
+//                    tabsPanel.getWidget(i).setVisible(false);
+//                }
+//            }
+//        }
+//
+//        listButton.setVisible(width >= tabsPanel.getOffsetWidth());
     }
 
     /**

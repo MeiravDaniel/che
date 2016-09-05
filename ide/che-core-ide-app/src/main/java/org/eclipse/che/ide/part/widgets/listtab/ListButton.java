@@ -27,22 +27,17 @@ public interface ListButton extends View<ListButton.ActionDelegate> {
 
     void removeListItem(@NotNull ListItem listItem);
 
-    void setVisible(boolean visible);
-
     interface ActionDelegate {
-
         /**
          * Handle clicking on list item
          * @param tab
          */
-        void onTabClicked(@NotNull PartStackView.TabItem tab);
+        void onItemClicked(@NotNull ListItem item);
 
         /**
          * Handle clicking on close icon
          * @param tab
          */
-        void onTabClose(@NotNull PartStackView.TabItem tab);
-
+        void onItemClose(@NotNull PartStackView.TabItem tab);
     }
-
 }

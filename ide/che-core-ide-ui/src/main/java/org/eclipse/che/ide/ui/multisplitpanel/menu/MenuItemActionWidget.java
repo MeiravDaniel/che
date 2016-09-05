@@ -41,7 +41,7 @@ public class MenuItemActionWidget extends Composite implements MenuItem<Action> 
     private Action         action;
     private ActionDelegate delegate;
 
-    public MenuItemActionWidget(Action action) {
+    public MenuItemActionWidget(Action action) {//
         initWidget(UI_BINDER.createAndBindUi(this));
         this.action = action;
 
